@@ -1,11 +1,11 @@
 # import add_expense function from add.py
-from add import add_expense
+from src.add import add_expense
 
 # import view_expenses function from view.py
-from view import view_expenses
+from src.view import view_expenses
 
 # import delete_expense function from delete.py
-from delete import delete_expense
+from src.delete import delete_expense
 
 import keyboard
 import datetime

@@ -1,6 +1,6 @@
 from behave import *
-from add import add_expense
-from read import read_expenses
+from src.add import add_expense
+from src.read import read_expenses
 
 @given('we have a sample expense')
 def step_impl(context):
