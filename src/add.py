@@ -31,5 +31,7 @@ def add_expense(date, category, amount, description):
         writer = csv.writer(file)
         writer.writerow([id, date, category, amount, description])
 
+    return id    
+
 
 
