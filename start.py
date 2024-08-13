@@ -8,6 +8,14 @@ from view import view_expenses
 from delete import delete_expense
 
 import keyboard
+import datetime
+
+def validate_date(date_text):
+    try:
+        datetime.datetime.strptime(date_text, '%d/%m/%Y')
+        return True
+    except ValueError:
+        return False
 
 # Welcome the user and ask them to choose an input form list of options
 def show_menu():
@@ -36,7 +44,15 @@ def main():
 
         if choice == "1":
             print("Add an expense")
-            add_expense()
+            date = input("Enter the date of the expense (DD/MM/YYYY): ")
+            # Add a check to ensure that the date is in the correct format and is a valid date.
+            while not validate_date(date):
+                date = input("Invalid date format. Please enter the date of the expense (DD/MM/YYYY): ")
+
+            category = input("Enter the category of the expense: ")
+            amount = input("Enter the amount of the expense: ")
+            description = input("Enter a description for the expense: ")
+            add_expense(date, category, amount, description)
         elif choice == "2":
             print("View expenses")
             view_expenses()            
