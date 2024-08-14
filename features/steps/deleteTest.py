@@ -24,6 +24,33 @@ def step_impl(context):
     else:
         assert False
     pass
+
+# Second scenario
+
+@given('we have a sample expense to add and delete with incorrect id')
+def step_impl(context):
+    context.date = '01/01/2020'
+    context.category = 'Food'
+    context.amount = '100'
+    context.description = 'Dinner'
+    pass
+
+@when('we try to delete it using an incorrect id')
+def step_impl(context):
+    context.id = add_expense(context.date, context.category, context.amount, context.description)
+    context.result = delete_expense('abc')
+    pass
+
+@then('it should not be deleted from expenses.csv')
+def step_impl(context):
+    # If result is False, it means the expense was not deleted successfully
+    if not context.result:
+        assert True
+    else:
+        assert False
+    pass
+
+
     
     
 

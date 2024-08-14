@@ -8,13 +8,13 @@ filePath = "expenses.csv"
 def view_expenses():
     if not os.path.exists(filePath):
         print("No expenses found.")
-        return
+        return "No expenses found. File does not exist."
     with open(filePath, "r") as file:
         reader = csv.reader(file)
-        expenses = list(reader)
-        if len(expenses) == 1:
+        expenses = list(reader)        
+        if len(expenses) == 2 and expenses[1] == []:
             print("No expenses found.")
-            return
+            return "No expenses found. File is empty."
         count = 0
         for expense in expenses[1:]:            
             # check if the line is empty
@@ -26,7 +26,8 @@ def view_expenses():
                 print("{:<12} {:<12} {:<12} {:<12} {:<12}".format(*expense))
                 count += 1
                 if count % 5 == 0:
-                    input("Press Enter to view the next 5 expenses...")   
+                    input("Press Enter to view the next 5 expenses...")                    
+        return expenses            
                       
 
             
