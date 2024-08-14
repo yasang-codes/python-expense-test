@@ -7,15 +7,19 @@ from src.view import view_expenses
 # import delete_expense function from delete.py
 from src.delete import delete_expense
 
-import keyboard
-import datetime
+# import validate_date function from validate.py
+from src.validations import validate_date
 
-def validate_date(date_text):
-    try:
-        datetime.datetime.strptime(date_text, '%d/%m/%Y')
-        return True
-    except ValueError:
-        return False
+# import validate_amount function
+from src.validations import validate_amount
+
+# import validate_category function
+from src.validations import validate_category
+
+# import validate_description function 
+from src.validations import validate_description
+
+import keyboard
 
 # Welcome the user and ask them to choose an input form list of options
 def show_menu():
@@ -48,11 +52,23 @@ def main():
             # Add a check to ensure that the date is in the correct format and is a valid date.
             while not validate_date(date):
                 date = input("Invalid date format. Please enter the date of the expense (DD/MM/YYYY): ")
-
             category = input("Enter the category of the expense: ")
+            # Add a check to ensure that the category is not empty.
+            while not validate_category(category):
+                category = input("Invalid category. Please enter the category of the expense: ")
             amount = input("Enter the amount of the expense: ")
+            # Add a check to ensure that the amount is a valid number and is greater than 0.
+            while not validate_amount(amount):
+                amount = input("Invalid amount. Please enter the amount of the expense: ")
             description = input("Enter a description for the expense: ")
-            add_expense(date, category, amount, description)
+            # Add a check to ensure that the description is not empty.
+            while not validate_description(description):
+                description = input("Invalid description. Please enter a description for the expense: ")
+            result = add_expense(date, category, amount, description)
+            if isinstance(result, int):
+                print(f"Expense added successfully. Expense ID: {result}")
+            else:
+                print(f"Error: {result}")
         elif choice == "2":
             print("View expenses")
             view_expenses()            
