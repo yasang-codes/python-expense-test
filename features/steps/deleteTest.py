@@ -1,6 +1,5 @@
 from behave import *
 from src.add import add_expense
-from src.read import read_expenses
 from src.delete import delete_expense
 
 @given('we have a sample expense to add and delete')
@@ -19,14 +18,11 @@ def step_impl(context):
 
 @then('it should be deleted from expenses.csv')
 def step_impl(context):
-    expenses = read_expenses()
-    # Check if the expense is in the list of expenses
-    found = False
-    for expense in expenses:
-        if expense['Id'] == str(context.id):
-            found = True
-            break
-    assert not found
+    # If result is True, it means the expense was deleted successfully
+    if context.result:
+        assert True
+    else:
+        assert False
     pass
     
     

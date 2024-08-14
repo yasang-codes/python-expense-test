@@ -16,16 +16,17 @@ def delete_expense(id):
             print("No expenses found.")
             return
         # Check if the ID exists in the file
-        found = False
+        found = False        
         for expense in expenses[1:]:
             if expense and int(expense[0]) == id:
                 found = True
-                expenses.remove(expense)
+                expenses.remove(expense)                
                 break
         if not found:
             print("Expense not found.")
-            return
+            return False       
     with open(filePath, "w", newline='') as file:
         writer = csv.writer(file)
         writer.writerows(expenses)
     print("Expense deleted successfully.")
+    return True
